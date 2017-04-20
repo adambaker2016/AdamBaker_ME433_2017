@@ -78,11 +78,11 @@ int main() {
 		  // remember the core timer runs at half the sysclk
         if(_CP0_GET_COUNT()>48000){
             
-            if(PORTBbits.RB4 = 1) { //if the button is on let the light flicker
+            if(PORTBbits.RB4) { //if the button is on let the light flicker
                 LATAINV = 0b10000; // turn LED on and off at 1 khz
             }
             else {
-                LATAbits.LATA4 = 0; // turn led off
+                LATAbits.LATA4 = 0; // turn led on
             }
             _CP0_SET_COUNT(0);
         }
