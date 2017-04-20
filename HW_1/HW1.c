@@ -66,15 +66,24 @@ int main() {
     DDPCONbits.JTAGEN = 0;
 
     // do your TRIS and LAT commands here
-    TRISBbits.TRISB4 = 0;
-    LATBbits.LATB4 = 1;
+    TRISAbits.TRISA4 = 0; // set led as output
+    LATAbits.LATA4 = 1; // turn led on
+    
+    TRISBbits.TRISB4 = 1; // set button as an input
+    
     __builtin_enable_interrupts();
     _CP0_SET_COUNT(0);
     while(1) {
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 		  // remember the core timer runs at half the sysclk
         if(_CP0_GET_COUNT()>48000){
-            LATBINV = 0b10000;
+            
+            if(PORTBbits.RB4 = 1) { //if the button is on let the light flicker
+                LATAINV = 0b10000; // turn LED on and off at 1 khz
+            }
+            else {
+                LATAbits.LATA4 = 0; // turn led off
+            }
             _CP0_SET_COUNT(0);
         }
     }
